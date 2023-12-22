@@ -8,7 +8,7 @@ package jdbc;
  *
  * @author legse
  */
-public class JDBC {
+public class Main {
 
     /**
      * @param args the command line arguments
@@ -16,5 +16,4 @@ public class JDBC {
     public static void main(String[] args) {
         // TODO code application logic here
     }
-    
 }
