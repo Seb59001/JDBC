@@ -2,57 +2,47 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package MAIN;
-//import DAO.Dao;
+package Main;
 
-import DAO.SupplierDao;
-import Modele.Supplier;
+import Main.MenuClient;
 
-/**
- *
- * @author legse
- */
+import java.util.Scanner;
+
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        int i;
+        Scanner scanner = new Scanner(System.in);
 
-        //Dao db = new Dao();
-        //db.connectDatabase();
-        System.out.println("Creating Toto");
-        Supplier toto = new Supplier(112, "Doe", "Jane", "doejane@gmail.com", "2 rue Vauban");
-        System.out.println("Adding to Database");
-        i = SupplierDao.add(toto);
-        if (i == -1) {
-            System.out.println("Adding failed");
-        } else {
-            System.out.println("Added (" + i + " records)");
+        while (true) {
+            System.out.println("1. Opérations sur Utilisateurs");
+            System.out.println("2. Opérations sur Clients");
+            System.out.println("3. Opérations sur Fournisseurs");
+            System.out.println("4. Opérations sur Articles");
+            System.out.println("0. Quitter");
+            System.out.print("Choisissez la table (0-4): ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Pour consommer la nouvelle ligne
+
+            switch (choice) {
+                case 1:
+                    // À implémenter : runUser();
+                    break;
+                case 2:
+                    MenuClient.run();         
+                    break;
+                case 3:
+//                    MenuFournisseurs.run();
+                    break;
+                case 4:
+//                    MenuArticles.run();
+                    break;
+                case 0:
+                    System.out.println("Au revoir !");
+                    System.exit(0);
+                default:
+                    System.out.println("Choix invalide. Veuillez réessayer.");
+            }
         }
-
-        //-----------------------------
-        System.out.println("Deleting id 5");
-        i = SupplierDao.delete(5);
-        if (i == -1) {
-            System.out.println("Deleting failed");
-        } else {
-            System.out.println("Deleted (" + i + " records)");
-        }
-
-        System.out.println(toto);
-
-        //----------------------------
-        System.out.println("Selecting id 10");
-        Supplier sup = SupplierDao.readById(1);
-        System.out.println(sup);
-        if (sup != null) {
-            System.out.println("Fournisseur trouvé :");
-        } else {
-            System.out.println("Aucun fournisseur trouvé avec l'ID 10");
-        }
-
     }
-
 }
