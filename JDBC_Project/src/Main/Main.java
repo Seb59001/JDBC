@@ -29,7 +29,7 @@ public class Main {
                     // À implémenter : runUser();
                     break;
                 case 2:
-                    MenuClient.run();         
+                    MenuClient.run();
                     break;
                 case 3:
 //                    MenuFournisseurs.run();

@@ -22,7 +22,7 @@ public class MenuClient {
      */
     public static void run() {
         Scanner scanner = new Scanner(System.in);
-        
+
         // Boucle pour afficher le menu et traiter les choix de l'utilisateur
         while (true) {
             System.out.println("\nMenu Clients");
@@ -36,7 +36,7 @@ public class MenuClient {
 
             int choice = scanner.nextInt();
             scanner.nextLine(); 
-            
+
             // Utilisation d'une structure switch pour gérer les différentes options du menu
             switch (choice) {
                 case 1:
@@ -87,7 +87,7 @@ public class MenuClient {
             System.out.println(client);
         }
     }
-    
+
      /**
      * Méthode pour supprimer un client par ID.
      * Avec appel de la méthode delete de la classe ClientDao
@@ -102,9 +102,7 @@ public class MenuClient {
         System.out.println("Échec de la suppression du client.");
     }
 }
-    
-    
-    
+
     /**
      * Méthode pour mettre à jour un client.
      * Avec appel de la méthode update de la classe ClientDao
@@ -219,8 +217,7 @@ public class MenuClient {
     }
 }
 
-    
-    
+
     /**
      * Méthode pour ajouter un nouveau client.
      * Avec appel de la méthode add de la classe ClientDao

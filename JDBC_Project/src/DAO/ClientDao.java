@@ -19,16 +19,18 @@ public class ClientDao {
     private ClientDao() {
     }
 
-     /*
+    /*
      * Ajoute un nouveau client à la base de données.
      */
     public static int add(Client client) {
-        // Initialisation des variables de connexion à la base de données et des résultats de requête
+        // Initialisation des variables de connexion à la base de données et des
+        // résultats de requête
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        
-        // Variable pour stocker le résultat de l'opération (par défaut, -1 indique un échec)
+
+        // Variable pour stocker le résultat de l'opération (par défaut, -1 indique un
+        // échec)
         int ret = -1;
 
         try {
@@ -47,7 +49,7 @@ public class ClientDao {
 
             // Exécuter la requête
             ret = preparedStatement.executeUpdate();
-        // Gérer les erreurs SQL en affichant un message d'erreur
+            // Gérer les erreurs SQL en affichant un message d'erreur
         } catch (SQLException e) {
             System.out.println("ERREUR : " + e);
         } finally {
@@ -56,8 +58,8 @@ public class ClientDao {
         }
         return ret;
     }
-    
-     /*
+
+    /*
      * Supprime un client de la base de données en utilisant son identifiant.
      */
     public static int delete(int id) {
@@ -86,7 +88,8 @@ public class ClientDao {
             Dao.closeResources(connection, preparedStatement, null);
         }
 
-        // Vérifier le nombre de lignes affectées pour déterminer le succès de la suppression
+        // Vérifier le nombre de lignes affectées pour déterminer le succès de la
+        // suppression
         if (rowsAffected > 0) {
             // La suppression a réussi, retourne un code de succès (par exemple, 1)
             return 1;
@@ -95,66 +98,66 @@ public class ClientDao {
             return -1;
         }
     }
-    
-     /*
+
+    /*
      * Récupère un client de la base de données en utilisant son identifiant.
      */
 
     public static Client readById(int id) {
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
-    Client client = null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Client client = null;
 
-    try {
-        // Ouvrir la connexion
-        connection = Dao.connectDatabase();
+        try {
+            // Ouvrir la connexion
+            connection = Dao.connectDatabase();
 
-        // Préparer la requête SQL
-        String sql = "SELECT * FROM client WHERE Client_ID = ?";
-        preparedStatement = connection.prepareStatement(sql);
+            // Préparer la requête SQL
+            String sql = "SELECT * FROM client WHERE Client_ID = ?";
+            preparedStatement = connection.prepareStatement(sql);
 
-        // Définir le paramètre
-        preparedStatement.setInt(1, id);
+            // Définir le paramètre
+            preparedStatement.setInt(1, id);
 
-        // Exécuter la requête
-        resultSet = preparedStatement.executeQuery();
-        
-        // Vérifier si le résultat de la requête contient une ligne (un enregistrement)
-        if (resultSet.next()) {
-            // Extraire les valeurs des colonnes du résultat de la requête
-            int clientId = resultSet.getInt("Client_ID");
-            int clientNumber = resultSet.getInt("client_Number");
-            String lastname = resultSet.getString("lastname");
-            String firstname = resultSet.getString("firstname");
-            String email = resultSet.getString("email");
-            String address = resultSet.getString("address");
-            // Créer une nouvelle instance de Client avec les valeurs extraites
-            client = new Client(clientId, clientNumber, lastname, firstname, email, address);
+            // Exécuter la requête
+            resultSet = preparedStatement.executeQuery();
+
+            // Vérifier si le résultat de la requête contient une ligne (un enregistrement)
+            if (resultSet.next()) {
+                // Extraire les valeurs des colonnes du résultat de la requête
+                int clientId = resultSet.getInt("Client_ID");
+                int clientNumber = resultSet.getInt("client_Number");
+                String lastname = resultSet.getString("lastname");
+                String firstname = resultSet.getString("firstname");
+                String email = resultSet.getString("email");
+                String address = resultSet.getString("address");
+                // Créer une nouvelle instance de Client avec les valeurs extraites
+                client = new Client(clientId, clientNumber, lastname, firstname, email, address);
+            }
+            // Gérer les erreurs SQL en affichant un message d'erreur
+        } catch (SQLException e) {
+            System.out.println("ERREUR : " + e);
+        } finally {
+            // Fermer les ressources
+            Dao.closeResources(connection, preparedStatement, resultSet);
         }
-    // Gérer les erreurs SQL en affichant un message d'erreur
-    } catch (SQLException e) {
-        System.out.println("ERREUR : " + e);
-    } finally {
-        // Fermer les ressources
-        Dao.closeResources(connection, preparedStatement, resultSet);
+
+        return client;
     }
 
-    return client;
-}
-    
-     /*
+    /*
      * Récupère tous les clients de la base de données.
      */
 
     public static List<Client> readAll() {
-        
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
-    List<Client> clients = new ArrayList<>();
 
-    try {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Client> clients = new ArrayList<>();
+
+        try {
             // Ouvrir la connexion
             connection = Dao.connectDatabase();
 
@@ -166,29 +169,28 @@ public class ClientDao {
             resultSet = preparedStatement.executeQuery();
 
             // Itération à travers les résultats de la requête
-        while (resultSet.next()) {
-            // Récupération des valeurs de chaque colonne pour un client
-            int clientId = resultSet.getInt("Client_ID");
-            int clientNumber = resultSet.getInt("client_Number");
-            String lastname = resultSet.getString("lastname");
-            String firstname = resultSet.getString("firstname");
-            String email = resultSet.getString("email");
-            String address = resultSet.getString("address");
-            // Création d'un objet Client avec les informations récupérées
-            Client client = new Client(clientId, clientNumber, lastname, firstname, email, address);
-            // Ajout du client à la liste
-            clients.add(client);
+            while (resultSet.next()) {
+                // Récupération des valeurs de chaque colonne pour un client
+                int clientId = resultSet.getInt("Client_ID");
+                int clientNumber = resultSet.getInt("client_Number");
+                String lastname = resultSet.getString("lastname");
+                String firstname = resultSet.getString("firstname");
+                String email = resultSet.getString("email");
+                String address = resultSet.getString("address");
+                // Création d'un objet Client avec les informations récupérées
+                Client client = new Client(clientId, clientNumber, lastname, firstname, email, address);
+                // Ajout du client à la liste
+                clients.add(client);
+            }
+            // Gérer les erreurs SQL en affichant un message d'erreur
+        } catch (SQLException e) {
+            System.out.println("ERREUR : " + e);
         }
-    // Gérer les erreurs SQL en affichant un message d'erreur
-    } catch (SQLException e) {
-        System.out.println("ERREUR : " + e);
+
+        return clients;
     }
 
-    return clients;
-}
-    
-
-     /*
+    /*
      * Met à jour les informations d'un client dans la base de données.
      */
     public static int update(Client client) {
@@ -215,7 +217,7 @@ public class ClientDao {
 
             // Exécuter la requête
             ret = preparedStatement.executeUpdate();
-        // Gérer les erreurs SQL en affichant un message d'erreur
+            // Gérer les erreurs SQL en affichant un message d'erreur
         } catch (SQLException e) {
             System.out.println("ERREUR : " + e);
         } finally {
@@ -223,5 +225,5 @@ public class ClientDao {
             Dao.closeResources(connection, preparedStatement, resultSet);
         }
         return ret;
-}
+    }
 }
