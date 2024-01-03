@@ -7,6 +7,9 @@ package MAIN;
 
 import DAO.SupplierDao;
 import Modele.Supplier;
+import java.util.List;
+import java.util.Scanner;
+import Main.menuSupplier;
 
 /**
  *
@@ -18,41 +21,52 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int i;
+        Scanner scanner = new Scanner(System.in);
+        boolean quitter = false;
 
-        //Dao db = new Dao();
-        //db.connectDatabase();
-        System.out.println("Creating Toto");
-        Supplier toto = new Supplier(112, "Doe", "Jane", "doejane@gmail.com", "2 rue Vauban");
-        System.out.println("Adding to Database");
-        i = SupplierDao.add(toto);
-        if (i == -1) {
-            System.out.println("Adding failed");
-        } else {
-            System.out.println("Added (" + i + " records)");
+        while (!quitter) {
+            afficherMenuPrincipal();
+            int choix = scanner.nextInt();
+            scanner.nextLine(); // Nettoyer la ligne en ajoutant une lecture supplémentaire
+            System.out.println();
+
+            switch (choix) {
+                case 1:
+                    // Appeler le menu user
+
+                    break;
+                case 2:
+                    // Appeler le menu client
+
+                    break;
+                case 3:
+                    // Appeler le menu Supplier
+                    menuSupplier.runMenu();
+                    break;
+                case 4:
+                    // Appeler le menu article
+
+                    break;
+                case 5:
+                    quitter = true;
+                    System.out.println("Merci d'avoir utilisé le programme. Au revoir !");
+                    scanner.close();
+                    break;
+                default:
+                    System.out.println("Choix invalide. Veuillez choisir une option valide.");
+                    System.out.println();
+                    break;
+            }
         }
-
-        //-----------------------------
-        System.out.println("Deleting id 5");
-        i = SupplierDao.delete(5);
-        if (i == -1) {
-            System.out.println("Deleting failed");
-        } else {
-            System.out.println("Deleted (" + i + " records)");
-        }
-
-        System.out.println(toto);
-
-        //----------------------------
-        System.out.println("Selecting id 10");
-        Supplier sup = SupplierDao.readById(1);
-        System.out.println(sup);
-        if (sup != null) {
-            System.out.println("Fournisseur trouvé :");
-        } else {
-            System.out.println("Aucun fournisseur trouvé avec l'ID 10");
-        }
-
     }
 
+    private static void afficherMenuPrincipal() {
+        System.out.println("Menu Principal :");
+        System.out.println("1. Gérer la table Utilisateurs");
+        System.out.println("2. Gérer la table Clients");
+        System.out.println("3. Gérer la table Fournisseurs");
+        System.out.println("4. Gérer la table Articles");
+        System.out.println("5. Quitter");
+        System.out.print("Choisissez une option : ");
+    }
 }
